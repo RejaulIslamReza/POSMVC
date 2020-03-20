@@ -1,0 +1,237 @@
+﻿
+
+@{
+    ViewBag.Title = "View1";
+    Layout = "~/Views/Shared/styles.cshtml";
+}
+
+
+<nav class="navbar-dark bg-dark">
+    <span class="navbar-brand md-0 h1">Resturant Coffee Shope POS</span>
+</nav>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="container">
+            <div class="list-group-item list-group-item-action active">
+                Item
+            </div>
+            <div class="panel-body bg-dark" style="color:white">
+                <form id="frm-project">
+                    <div class="panel-body bg-dark" style="color:white">
+                        <table class="table table-bordered" style="color:white">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="pos" value="Rice" />
+                                    <label>Rice</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="qty" id="qty" size="10px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="pos" value="Village Fries" />
+                                    <label>Village Fries</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="qty" id="qty" size="10px" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="pos" value="Fries" />
+                                    <label> Fries</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="qty" id="qty" size="10px" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-3">
+        <div class="container">
+            <div class="list-group-item list-group-item-action active">
+                Item
+            </div>
+            <div class="panel-body bg-dark" style="color:white">
+                <form id="frm-project">
+                    <div class="panel-body bg-dark" style="color:white">
+                        <table class="table table-bordered" style="color:white">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="pos" value="Tea" />
+                                    <label>Tea</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="qty" id="qty" size="10px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="pos" value="Coffee" />
+                                    <label>Coffee</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="qty" id="qty" size="10px" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="pos" value="orange Juice" />
+                                    <label> Orange Juice</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="qty" id="qty" size="10px" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="pos" value="apple juice" />
+                                    <label> Apple Juice</label>
+                                </td>
+                                <td>
+                                    <input type="number" name="qty" id="qty" size="10px" />
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <input type="button" class="btn btn-info" value="Add" onclick="Add()" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+        <div class="container">
+            <div class="list-group-item list-group-item-action active">
+                Add Products
+            </div>
+            <table id="tbl-item" class="table table-bordered" cellpadding="0" width="100%" align="center">
+                <thead>
+                    <tr>
+                        <th>Delete</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+
+                    <tbody>
+
+                    </tbody>
+                </thead>
+
+
+            </table>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="col-sm-2">
+        <div class="container">
+            <div class="list-group-item list-group-item-action active">
+                Bill
+            </div>
+
+            <div>
+                <label>Total</label>
+                <input type="text" style="color:yellow; background:black; font-size:30px;" id="total" name="total" placeholder="Total" required />
+            </div>
+
+            <div>
+                <input type="button" class="btn btn-info" value="Reset" name="reset" id="reset" />
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript">
+        var tot = 0;
+        var total = 0;
+
+        function Add()
+        {
+            $("input[name='pos']:checked").each(function () {
+                let check = $(this).val();
+                var price = null;
+                if (check == "Rice") {
+                    price = 120;
+                }
+                else if (check == "VillageFries") {
+                    price = 150;
+                }
+                else if (check == "Fries") {
+                    price = 110;
+                }
+                else if (check == "Tea") {
+                    price = 50;
+                }
+                else if (check == "Coffee") {
+                    price = 60;
+                }
+                else if (check == "orangeJuice") {
+                    price = 70;
+                }
+                else if (check == "applejuice") {
+                    price = 90;
+                }
+
+                var qty = $(this).closest("tr").find('[name="qty"]').val() || 0;
+                tot = qty * price;
+
+                var table =
+                    "<tr>" +
+                    "<td><button type='button' name='record' class='btn btn-warning' onclick='deleterow(this)'>Delete</td>" +
+                    "<td>" + check + "</td>" +
+                    "<td>" + price + "</td>" +
+                    "<td>" + qty + "</td>" +
+                    "<td>" + tot + "</td>" +
+                    "</tr>";
+
+                total += Number(tot);
+                $("#total").val(total);
+                $("#tbl-item tbody").append(table);
+            }
+                
+            );
+        }
+
+
+        function deleterow(e) {
+            totalcost = parseInt($(e).parent().parent().find('td:last').text(), 10);
+            total -= totalcost;
+            $('#total').val(total);
+            $(e).parent().parent().remove();
+        }
+
+        $('#reset').click(function () {
+            location.reload();
+        }
+
+        );
+    </script>
+
+
+
+}
